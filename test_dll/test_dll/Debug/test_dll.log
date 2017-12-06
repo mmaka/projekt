@@ -1,0 +1,7 @@
+﻿  dllmain.cpp
+  test_dll.cpp
+c:\users\maka\documents\visual studio 2015\projects\test_dll\test_dll\test_dll\test_dll.cpp(32): warning C4715: 'RegisterDLLWindowClass': not all control paths return a value
+test_dll.obj : error LNK2005: "struct HINSTANCE__ * inj_hModule" (?inj_hModule@@3PAUHINSTANCE__@@A) already defined in dllmain.obj
+test_dll.obj : error LNK2005: "struct HWND__ * prnt_hWnd" (?prnt_hWnd@@3PAUHWND__@@A) already defined in dllmain.obj
+     Creating library C:\Users\maka\Documents\Visual Studio 2015\Projects\TEST_DLL\test_dll\Debug\test_dll.lib and object C:\Users\maka\Documents\Visual Studio 2015\Projects\TEST_DLL\test_dll\Debug\test_dll.exp
+C:\Users\maka\Documents\Visual Studio 2015\Projects\TEST_DLL\test_dll\Debug\test_dll.dll : fatal error LNK1169: one or more multiply defined symbols found
