@@ -2,7 +2,8 @@
 #include <Windows.h>
 #include "MacierzGL.h"
 #include "Aktor.h"
-#include"cuda_kernel.cuh"
+#include"cuda_opengl_interop.cuh"
+#include"Tomogram.h"
 
 
 class Okno {
@@ -54,7 +55,7 @@ protected:
 	void SwobodneObrotyKamery(const bool inicjacja, const float poczatowe_dx = 0, const float poczatkowe_dy = 0, const float wspolczynnikWygaszania = 0);
 	void UstawienieSceny(bool rzutowanieIzometryczne = false);
 	void RysujScene();
-	Macierz4 macierzSwiata, macierzWidoku, macierzRzutowania, macierzNormalnych;
+	Macierz4 macierzSwiata, macierzWidoku, macierzRzutowania;// , macierzNormalnych;
 	Macierz4 MVP, VP;
 	typedef void (OknoGL::*TypMetodyObslugujacejPrzesuniecieMyszy)(const POINT biezacaPozycjaKursoraMyszy, const POINT przesuniecieKursoraMyszy);
 	void ObslugaKlawiszy(WPARAM wParam);
@@ -74,17 +75,21 @@ protected:
 
 	LARGE_INTEGER countPerSec, tim1, tim2;
 
-	cuda_texture_interface* cti;
+	Cuda_OpenGL_Interop* cti;
+	PojemnikNaTekstury* poj;
+	Tomogram *tom;
+
 	bool zmianaKoloru;
 	bool flaga;
 public:
 	OknoGL()
 		: Okno(),
 		uchwytRC(NULL), uchwytDC(NULL),
-		macierzSwiata(Macierz4::Jednostkowa), macierzWidoku(Macierz4::Jednostkowa), macierzRzutowania(Macierz4::Jednostkowa), macierzNormalnych(Macierz4::Jednostkowa),
+		macierzSwiata(Macierz4::Jednostkowa), macierzWidoku(Macierz4::Jednostkowa), macierzRzutowania(Macierz4::Jednostkowa),// macierzNormalnych(Macierz4::Jednostkowa),
 		MVP(Macierz4::Jednostkowa),VP(Macierz4::Jednostkowa),
 		swobodneObrotyKameryAktywne(false),teksturowanieWlaczone(true), kolor(true), zmianaKoloru(false),flaga(true) {};
 	LRESULT __stdcall WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-
+	void PobierzDane();
+	void PrzekazWskaznik(pakiet_danych& p);
 
 };

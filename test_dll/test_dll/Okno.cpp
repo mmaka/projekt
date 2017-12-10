@@ -8,7 +8,7 @@
 #include<sstream>
 #include<iostream>
 #include<fstream>
-
+#include<vector>
 
 LRESULT CALLBACK __stdcall WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -227,11 +227,20 @@ LRESULT __stdcall OknoGL::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 	//	cti = new cuda_texture_interface(300);
 	//	cti->inicjalizacja();
 		
-		if (teksturowanieWlaczone)
-			PrzygotujTekstury(300, new char*[2]{ "kwadrat_czer.bmp","kwadrat_czer2.bmp" });
-		else
-			glUniform1i(glGetUniformLocation(idProgramuShaderow, "Teksturowanie"), false);
+//		if (teksturowanieWlaczone)
+//			PrzygotujTekstury(300, new char*[2]{ "kwadrat_czer.bmp","kwadrat_czer2.bmp" });
+//		else
+//			glUniform1i(glGetUniformLocation(idProgramuShaderow, "Teksturowanie"), false);
 
+		tom = new Tomogram(500, 500, 100);
+		tom->init();
+		cti = new Cuda_OpenGL_Interop(300,500,500);
+		cti->init();
+		poj = new PojemnikNaTekstury(300);
+		cti->rejestrowanieTekstur(tom->indeksy_ping(), poj->res1(), poj->arr1(), 300, poj->str(), GL_TEXTURE_2D, cudaGraphicsRegisterFlagsNone, 0, 0);
+		cti->rejestrowanieTekstur(tom->indeksy_pong(), poj->res2(), poj->arr2(), 300, poj->str(), GL_TEXTURE_2D, cudaGraphicsRegisterFlagsNone, 0, 0);
+		poj->surf_init();
+	//	poj->wpiszTekstureWCudaArray();
 		MessageBox(NULL, "Przygotowanie tekstur", "", NULL);
 
 		liczbaAktorow = PrzygotujAktorow();
@@ -285,7 +294,7 @@ LRESULT __stdcall OknoGL::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 			break;
 		case identyfikatorTimeraRysowania:
 			//cti->akcja(flaga);
-			flaga = !flaga;
+		//	flaga = !flaga;
 			RysujScene();
 			break;
 		}
@@ -348,15 +357,15 @@ void OknoGL::UstawienieSceny(bool rzutowanieIzometryczne) {
 	glUniform1f(parametrPrzezroczystosc, przezroczystosc);
 
 	GLint parametrMacierzSwiata = glGetUniformLocation(idProgramuShaderow, "macierzSwiata");
-	macierzSwiata.ZwiazZIdentyfikatorem(parametrMacierzSwiata, true);
+	//macierzSwiata.ZwiazZIdentyfikatorem(parametrMacierzSwiata, true);
 
 	GLint parametrMacierzWidoku = glGetUniformLocation(idProgramuShaderow, "macierzWidoku");
 	macierzWidoku.UstawJednostkowa();
 	macierzWidoku *= Macierz4::Przesuniecie(0, 0, -3);
-	macierzWidoku.ZwiazZIdentyfikatorem(parametrMacierzWidoku, true);
+//	macierzWidoku.ZwiazZIdentyfikatorem(parametrMacierzWidoku, true);
 
 	GLint parametrMacierzRzutowania = glGetUniformLocation(idProgramuShaderow, "macierzRzutowania");
-	macierzRzutowania.ZwiazZIdentyfikatorem(parametrMacierzRzutowania, false);
+//	macierzRzutowania.ZwiazZIdentyfikatorem(parametrMacierzRzutowania, false);
 
 
 	GLint parametrMVP = glGetUniformLocation(idProgramuShaderow, "mvp");
@@ -369,13 +378,13 @@ void OknoGL::UstawienieSceny(bool rzutowanieIzometryczne) {
 	else
 		macierzRzutowania.UstawRzutIzometryczny(-1.0f, 1.0f, wsp*-1.0f, wsp*1.0f, 1.0f, 10.0f);
 
-	macierzRzutowania.PrzeslijWartosc();
+//	macierzRzutowania.PrzeslijWartosc();
 
 	VP.Ustaw(macierzRzutowania);
 	VP.PomnozZPrawej(macierzWidoku);
-	GLuint parametrMacierzNormalnych = glGetUniformLocation(idProgramuShaderow, "macierzNormalnych");
+//	GLuint parametrMacierzNormalnych = glGetUniformLocation(idProgramuShaderow, "macierzNormalnych");
 //	macierzNormalnych = macierzSwiata.Odwrotna().Transponowana();
-	macierzNormalnych.ZwiazZIdentyfikatorem(parametrMacierzNormalnych, true);
+//	macierzNormalnych.ZwiazZIdentyfikatorem(parametrMacierzNormalnych, true);
 }
 
 
@@ -671,15 +680,15 @@ void OknoGL::ModyfikujPolozenieKamery(Macierz4 macierzPrzeksztalcenia) {
 	case tkkModel:
 		macierzWidoku.PomnozZPrawej(macierzPrzeksztalcenia);
 	}
-	macierzWidoku.PrzeslijWartosc();
+//	macierzWidoku.PrzeslijWartosc();
 
 	VP.Ustaw(macierzRzutowania);
 	VP.PomnozZPrawej(macierzWidoku);
 
-	float polozenieKamery[3];
-	PobierzPolozenieKamery(false).KopiujElementy(polozenieKamery);
-	GLuint parametrPolozenieKamery = glGetUniformLocation(idProgramuShaderow, "PolozenieKamery");
-	glUniform3fv(parametrPolozenieKamery, 1, polozenieKamery);
+//	float polozenieKamery[3];
+//	PobierzPolozenieKamery(false).KopiujElementy(polozenieKamery);
+//	GLuint parametrPolozenieKamery = glGetUniformLocation(idProgramuShaderow, "PolozenieKamery");
+//	glUniform3fv(parametrPolozenieKamery, 1, polozenieKamery);
 }
 
 void OknoGL::ObliczaniePrzesunieciaMyszy(const LPARAM lParam, const float prog, POINT& poprzedniaPozycjaKursoraMyszy, TypMetodyObslugujacejPrzesuniecieMyszy MetodaObslugujacaPrzesuniecieMyszy) {
@@ -800,8 +809,10 @@ unsigned int OknoGL::PrzygotujAktorow() {
 		float z = (((float)i * 2) / iloscBskanow - 1)*obszarB;
 		aktorzy[i] = new Prostokat(atrybutPolozenie, atrybutNormalna, atrybutWspolrzedneTeksturowania, atrybutKolor);
 		aktorzy[i]->MacierzSwiata = Macierz4::Przesuniecie(0.0f, 0.0f, -z);
-		aktorzy[i]->IndeksTekstury = (teksturowanieWlaczone) ? indeksyTekstur[i] : -1;
-		aktorzy[i]->IndeksTekstury2 = (teksturowanieWlaczone) ? indeksyTekstur2[i] : -1;
+	//	aktorzy[i]->IndeksTekstury = (teksturowanieWlaczone) ? indeksyTekstur[i] : -1;
+		aktorzy[i]->IndeksTekstury = (teksturowanieWlaczone) ? *(tom->indeksy_ping()+i) : -1;
+	//	aktorzy[i]->IndeksTekstury2 = (teksturowanieWlaczone) ? indeksyTekstur2[i] : -1;
+		aktorzy[i]->IndeksTekstury2 = (teksturowanieWlaczone) ? *(tom->indeksy_pong() + i) : -1;
 		aktorzy[i]->przezroczystosc = przezro;
 
 	}
@@ -813,8 +824,10 @@ unsigned int OknoGL::PrzygotujAktorow() {
 		float x = (((float)i * 2) / iloscPrzekrojowSzer - 1)*obszarPSzer;
 		aktorzy[iloscBskanow + i] = new Prostokat(atrybutPolozenie, atrybutNormalna, atrybutWspolrzedneTeksturowania, atrybutKolor);
 		aktorzy[iloscBskanow + i]->MacierzSwiata = Macierz4::Przesuniecie(-x, 0.0f, 0.0f)*Macierz4::ObrotY(-90);
-		aktorzy[i + iloscBskanow]->IndeksTekstury = (teksturowanieWlaczone) ? indeksyTekstur[i + iloscBskanow] : -1;
-		aktorzy[i + iloscBskanow]->IndeksTekstury2 = (teksturowanieWlaczone) ? indeksyTekstur2[i + iloscBskanow] : -1;
+		//aktorzy[i + iloscBskanow]->IndeksTekstury = (teksturowanieWlaczone) ? indeksyTekstur[i + iloscBskanow] : -1;
+		aktorzy[i + iloscBskanow]->IndeksTekstury = (teksturowanieWlaczone) ? *(tom->indeksy_ping()+i + iloscBskanow) : -1;
+		//aktorzy[i + iloscBskanow]->IndeksTekstury2 = (teksturowanieWlaczone) ? indeksyTekstur2[i + iloscBskanow] : -1;
+		aktorzy[i + iloscBskanow]->IndeksTekstury2 = (teksturowanieWlaczone) ? *(tom->indeksy_pong() + i + iloscBskanow) : -1;
 		aktorzy[i + iloscBskanow]->przezroczystosc = przezro;
 
 	}
@@ -826,8 +839,10 @@ unsigned int OknoGL::PrzygotujAktorow() {
 		float y = (((float)i * 2) / iloscPrzekrojowWys - 1)*obszarPWys;
 		aktorzy[iloscBskanow + iloscPrzekrojowSzer + i] = new Prostokat(atrybutPolozenie, atrybutNormalna, atrybutWspolrzedneTeksturowania, atrybutKolor);
 		aktorzy[iloscBskanow + iloscPrzekrojowSzer + i]->MacierzSwiata = Macierz4::Przesuniecie(0.0f, -y, 0.0f)*Macierz4::ObrotX(-270);
-		aktorzy[i + iloscBskanow + iloscPrzekrojowSzer]->IndeksTekstury = (teksturowanieWlaczone) ? indeksyTekstur[i + iloscBskanow + iloscPrzekrojowSzer] : -1;
-		aktorzy[i + iloscBskanow + iloscPrzekrojowSzer]->IndeksTekstury2 = (teksturowanieWlaczone) ? indeksyTekstur2[i + iloscBskanow + iloscPrzekrojowSzer] : -1;
+		//aktorzy[i + iloscBskanow + iloscPrzekrojowSzer]->IndeksTekstury = (teksturowanieWlaczone) ? indeksyTekstur[i + iloscBskanow + iloscPrzekrojowSzer] : -1;
+		aktorzy[i + iloscBskanow + iloscPrzekrojowSzer]->IndeksTekstury = (teksturowanieWlaczone) ? *(tom->indeksy_ping()+i + iloscBskanow + iloscPrzekrojowSzer) : -1;
+		//aktorzy[i + iloscBskanow + iloscPrzekrojowSzer]->IndeksTekstury2 = (teksturowanieWlaczone) ? indeksyTekstur2[i + iloscBskanow + iloscPrzekrojowSzer] : -1;
+		aktorzy[i + iloscBskanow + iloscPrzekrojowSzer]->IndeksTekstury2 = (teksturowanieWlaczone) ? *(tom->indeksy_pong() + i + iloscBskanow + iloscPrzekrojowSzer) : -1;
 		aktorzy[i + iloscBskanow + iloscPrzekrojowSzer]->przezroczystosc = przezro;
 
 	}
@@ -837,25 +852,30 @@ unsigned int OknoGL::PrzygotujAktorow() {
 
 void OknoGL::RysujAktorow() {
 	
+//	std::vector<unsigned int> v; 
+//	poj->generujIndeksy(v);
+	//v = poj->generujIndeksy();
+	//v.swap(poj->generujIndeksy());
+
 	for (unsigned int i = 0; i < liczbaAktorow; ++i) {
 
 		//zachowuje zwiazek z macierza shaderow, z tego powodu nie nalezy uzywac operatora =
 		macierzSwiata.Ustaw(aktorzy[i]->MacierzSwiata);
-		macierzSwiata.PrzeslijWartosc();
+//		macierzSwiata.PrzeslijWartosc();
 		MVP.Ustaw(VP);
 		
 		MVP.PomnozZPrawej(aktorzy[i]->MacierzSwiata);
 		MVP.PrzeslijWartosc();
-		try {
-			macierzNormalnych.Ustaw(macierzSwiata.Odwrotna().Transponowana());
-		}
-		catch (std::exception exc) {
+//		try {
+//			macierzNormalnych.Ustaw(macierzSwiata.Odwrotna().Transponowana());
+//		}
+//		catch (std::exception exc) {
 
-			MessageBox(NULL, "Error", "Error", MB_OK | MB_ICONERROR);
-			macierzNormalnych.Ustaw(macierzSwiata);
+//			MessageBox(NULL, "Error", "Error", MB_OK | MB_ICONERROR);
+//			macierzNormalnych.Ustaw(macierzSwiata);
 
-		}
-		macierzNormalnych.PrzeslijWartosc();
+//		}
+//		macierzNormalnych.PrzeslijWartosc();
 	
 		if (teksturowanieWlaczone) {
 
@@ -863,6 +883,7 @@ void OknoGL::RysujAktorow() {
 
 				glUniform1i(glGetUniformLocation(idProgramuShaderow, "Teksturowanie"), true);
 				glBindTexture(GL_TEXTURE_2D, (flaga) ? aktorzy[i]->IndeksTekstury : aktorzy[i]->IndeksTekstury2);
+			//	glBindTexture(GL_TEXTURE_2D, *(tom->indeksy_ping()+v[i]));
 			}
 			else {
 
@@ -983,6 +1004,25 @@ void OknoGL::PrzygotujTekstury() {
 	glBindTexture(GL_TEXTURE_2D, NULL);
 }
 */
+
+
+void OknoGL::PobierzDane() {
+
+	//wysy³am stan flagi
+	//poj->producentTekstur(poj->pakiet(), !flaga);
+	poj->old_dostawcaTekstur(poj->pakiet(), flaga);
+	flaga = !flaga;
+	poj->old_dostawcaTekstur(poj->pakiet(), flaga);
+	flaga = !flaga;
+}
+
+void OknoGL::PrzekazWskaznik(pakiet_danych& p) {
+
+
+//	poj->przekazWskaznik(poj->p);
+
+}
+
 
 void OknoGL::UsunTekstury() {
 

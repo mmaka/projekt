@@ -6,6 +6,7 @@
 HINSTANCE hInstance;
 OknoGL okno;
 
+
 BOOL APIENTRY DllMain(HINSTANCE hinstDLL, DWORD ul_reason_for_call, LPVOID lpReserved){
 
 	switch (ul_reason_for_call)
@@ -47,13 +48,23 @@ LRESULT CALLBACK __stdcall WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
 	 else return okno.Uruchom();
 }
 
-//std::thread *t;
+std::thread *t;
 
 
 extern "C" __declspec(dllexport) const char* Akcja() {
 
-//	t = new std::thread(StworzOkno);
-	//t->join();
-	StworzOkno();
+	t = new std::thread(StworzOkno);
+	t->detach();
+	//StworzOkno();
 	return "Hello!";
+}
+
+extern "C" __declspec(dllexport) void Akcja2() {
+
+	okno.PobierzDane();
+}
+
+extern "C" __declspec(dllexport) void Akcja3(pakiet_danych p) {
+
+	okno.PrzekazWskaznik(p);
 }

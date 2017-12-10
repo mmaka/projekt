@@ -2,11 +2,11 @@
 
 out vec4 kolor_out;
 
-in vec4 polozenie;
+//in vec4 polozenie;
 in vec4 kolor;
-in vec3 normalna_scena;
+//in vec3 normalna_scena;
 in vec2 wspTekstur;
-in vec3 polozenie_scena;
+//in vec3 polozenie_scena;
 
 uniform bool Teksturowanie = true;
 uniform bool flaga = true;

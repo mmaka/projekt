@@ -23,11 +23,13 @@ void Aktor::Inicjuj(GLuint atrybutPolozenie, GLuint atrybutNormalna, GLuint atry
 
 	glVertexAttribPointer(atrybutPolozenie, Werteks::liczbaWpolrzednychPolozenia, GL_FLOAT, GL_FALSE, Werteks::rozmiarWerteksu, 0);
 	glEnableVertexAttribArray(atrybutPolozenie);
-	glVertexAttribPointer(atrybutNormalna, Werteks::liczbaWspolrzednychNormalnej, GL_FLOAT, GL_FALSE, Werteks::rozmiarWerteksu, (const GLvoid *)Werteks::rozmiarWektoraPolozenia);
-	glEnableVertexAttribArray(atrybutNormalna);
-	glVertexAttribPointer(atrybutWspolrzedneTeksturowania, Werteks::liczbaWspolrzednychTeksturowania, GL_FLOAT, GL_FALSE, Werteks::rozmiarWerteksu, (const GLvoid*)(Werteks::rozmiarWektoraPolozenia + Werteks::rozmiarNormalnej));
+//	glVertexAttribPointer(atrybutNormalna, Werteks::liczbaWspolrzednychNormalnej, GL_FLOAT, GL_FALSE, Werteks::rozmiarWerteksu, (const GLvoid *)Werteks::rozmiarWektoraPolozenia);
+//	glEnableVertexAttribArray(atrybutNormalna);
+//	glVertexAttribPointer(atrybutWspolrzedneTeksturowania, Werteks::liczbaWspolrzednychTeksturowania, GL_FLOAT, GL_FALSE, Werteks::rozmiarWerteksu, (const GLvoid*)(Werteks::rozmiarWektoraPolozenia + Werteks::rozmiarNormalnej));
+	glVertexAttribPointer(atrybutWspolrzedneTeksturowania, Werteks::liczbaWspolrzednychTeksturowania, GL_FLOAT, GL_FALSE, Werteks::rozmiarWerteksu, (const GLvoid*)(Werteks::rozmiarWektoraPolozenia));
 	glEnableVertexAttribArray(atrybutWspolrzedneTeksturowania);
-	glVertexAttribPointer(atrybutKolor, Werteks::liczbaSkladowychKoloru, GL_FLOAT, GL_FALSE, Werteks::rozmiarWerteksu, (const GLvoid*)(Werteks::rozmiarWektoraPolozenia+Werteks::rozmiarNormalnej+Werteks::rozmiarWspolrzednychTeksturowania));
+//	glVertexAttribPointer(atrybutKolor, Werteks::liczbaSkladowychKoloru, GL_FLOAT, GL_FALSE, Werteks::rozmiarWerteksu, (const GLvoid*)(Werteks::rozmiarWektoraPolozenia+Werteks::rozmiarNormalnej+Werteks::rozmiarWspolrzednychTeksturowania));
+	glVertexAttribPointer(atrybutKolor, Werteks::liczbaSkladowychKoloru, GL_FLOAT, GL_FALSE, Werteks::rozmiarWerteksu, (const GLvoid*)(Werteks::rozmiarWektoraPolozenia + Werteks::rozmiarWspolrzednychTeksturowania));
 	glEnableVertexAttribArray(atrybutKolor);
 
 }
@@ -74,10 +76,15 @@ unsigned int Kwadrat::TworzTabliceWerteksow(Werteks*& werteksy) {
 	const float y0 = dlugoscKrawedzi / 2.0f;
 
 	werteksy = new Werteks[4];
-	werteksy[0] = Werteks(-x0, -y0, 0.0f,0,0,1, 1, 1, 0, 1);
-	werteksy[1] = Werteks(x0, -y0, 0.0f, 0, 0, 1, 1, 0, 1, 1);
-	werteksy[2] = Werteks(-x0, y0, 0.0f, 0, 0, 1, 0, 1, 1, 1);
-	werteksy[3] = Werteks(x0, y0, 0.0f, 0, 0, 1, 1, 1, 1, 1);
+//	werteksy[0] = Werteks(-x0, -y0, 0.0f,0,0,1, 1, 1, 0, 1);
+//	werteksy[1] = Werteks(x0, -y0, 0.0f, 0, 0, 1, 1, 0, 1, 1);
+//	werteksy[2] = Werteks(-x0, y0, 0.0f, 0, 0, 1, 0, 1, 1, 1);
+//	werteksy[3] = Werteks(x0, y0, 0.0f, 0, 0, 1, 1, 1, 1, 1);
+
+	werteksy[0] = Werteks(-x0, -y0, 0.0f, 0, 0, 0, 1,1,1);
+	werteksy[1] = Werteks(x0, -y0, 0.0f, 1, 0, 1, 1,1,1);
+	werteksy[2] = Werteks(-x0, y0, 0.0f, 0, 1, 1, 1,1, 1);
+	werteksy[3] = Werteks(x0, y0, 0.0f, 1, 1, 1, 1,1,1);
 
 	return 4;
 }
@@ -115,15 +122,26 @@ unsigned int Prostopadloscian::TworzTabliceWerteksow(Werteks*& werteksy) {
 
 	}
 	//tylna
-	werteksy[0] = Werteks(x0, -y0, -z0,0.0f,0.0f,-1.0f,0.0f,0.0f, r, g, b);
-	werteksy[1] = Werteks(-x0, -y0, -z0, 0.0f, 0.0f, -1.0f,1.0f,0.0f, r, g, b);
-	werteksy[2] = Werteks(x0, y0, -z0, 0.0f, 0.0f, -1.0f, 0.0f,1.0f,r, g, b);
-	werteksy[3] = Werteks(-x0, y0, -z0, 0.0f, 0.0f, -1.0f, 1.0f,1.0f,r, g, b);
+//	werteksy[0] = Werteks(x0, -y0, -z0,0.0f,0.0f,-1.0f,0.0f,0.0f, r, g, b);
+//	werteksy[1] = Werteks(-x0, -y0, -z0, 0.0f, 0.0f, -1.0f,1.0f,0.0f, r, g, b);
+//	werteksy[2] = Werteks(x0, y0, -z0, 0.0f, 0.0f, -1.0f, 0.0f,1.0f,r, g, b);
+//	werteksy[3] = Werteks(-x0, y0, -z0, 0.0f, 0.0f, -1.0f, 1.0f,1.0f,r, g, b);
 	//przednia
-	werteksy[4] = Werteks(-x0, -y0, z0, 0.0f, 0.0f, 1.0f,0.0f,0.0f, r, g, b);
-	werteksy[5] = Werteks(x0, -y0, z0, 0.0f, 0.0f, 1.0f,1.0f,0.0f, r, g, b);
-	werteksy[6] = Werteks(-x0, y0, z0, 0.0f, 0.0f, 1.0f,0.0f,1.0f, r, g, b);
-	werteksy[7] = Werteks(x0, y0, z0, 0.0f, 0.0f, 1.0f,1.0f,1.0f, r, g, b);
+//	werteksy[4] = Werteks(-x0, -y0, z0, 0.0f, 0.0f, 1.0f,0.0f,0.0f, r, g, b);
+//	werteksy[5] = Werteks(x0, -y0, z0, 0.0f, 0.0f, 1.0f,1.0f,0.0f, r, g, b);
+//	werteksy[6] = Werteks(-x0, y0, z0, 0.0f, 0.0f, 1.0f,0.0f,1.0f, r, g, b);
+//	werteksy[7] = Werteks(x0, y0, z0, 0.0f, 0.0f, 1.0f,1.0f,1.0f, r, g, b);
+
+	werteksy[0] = Werteks(x0, -y0, -z0, 0.0f, 0.0f, r, g, b);
+	werteksy[1] = Werteks(-x0, -y0, -z0,1.0f, 0.0f, r, g, b);
+	werteksy[2] = Werteks(x0, y0, -z0,0.0f, 1.0f, r, g, b);
+	werteksy[3] = Werteks(-x0, y0, -z0,1.0f, 1.0f, r, g, b);
+	//przednia
+	werteksy[4] = Werteks(-x0, -y0, z0,0.0f, 0.0f, r, g, b);
+	werteksy[5] = Werteks(x0, -y0, z0,1.0f, 0.0f, r, g, b);
+	werteksy[6] = Werteks(-x0, y0, z0,0.0f, 1.0f, r, g, b);
+	werteksy[7] = Werteks(x0, y0, z0,1.0f, 1.0f, r, g, b);
+
 
 	if (koloruj) {
 
@@ -133,16 +151,26 @@ unsigned int Prostopadloscian::TworzTabliceWerteksow(Werteks*& werteksy) {
 	}
 
 	//prawa
-	werteksy[8] = Werteks(x0, -y0, z0, 1.0f, 0.0f, 0.0f,0.0f,0.0f, r, g, b);
-	werteksy[9] = Werteks(x0, -y0, -z0, 1.0f, 0.0f, 0.0f,1.0f,0.0f, r, g, b);
-	werteksy[10] = Werteks(x0, y0, z0, 1.0f, 0.0f, 0.0f,0.0f,1.0f, r, g, b);
-	werteksy[11] = Werteks(x0, y0, -z0, 1.0f, 0.0f, 0.0f,1.0f,1.0f, r, g, b);
+//	werteksy[8] = Werteks(x0, -y0, z0, 1.0f, 0.0f, 0.0f,0.0f,0.0f, r, g, b);
+//	werteksy[9] = Werteks(x0, -y0, -z0, 1.0f, 0.0f, 0.0f,1.0f,0.0f, r, g, b);
+//	werteksy[10] = Werteks(x0, y0, z0, 1.0f, 0.0f, 0.0f,0.0f,1.0f, r, g, b);
+//	werteksy[11] = Werteks(x0, y0, -z0, 1.0f, 0.0f, 0.0f,1.0f,1.0f, r, g, b);
 	//lewa
-	werteksy[12] = Werteks(-x0, -y0, -z0, -1.0f, 0.0f, 0.0f,0.0f,0.0f, r, g, b);
-	werteksy[13] = Werteks(-x0, -y0, z0, -1.0f, 0.0f, 0.0f,1.0f,0.0f, r, g, b);
-	werteksy[14] = Werteks(-x0, y0, -z0, -1.0f, 0.0f, 0.0f,0.0f,1.0f, r, g, b);
-	werteksy[15] = Werteks(-x0, y0, z0, -1.0f, 0.0f, 0.0f,1.0f,1.0f, r, g, b);
+//	werteksy[12] = Werteks(-x0, -y0, -z0, -1.0f, 0.0f, 0.0f,0.0f,0.0f, r, g, b);
+//	werteksy[13] = Werteks(-x0, -y0, z0, -1.0f, 0.0f, 0.0f,1.0f,0.0f, r, g, b);
+//	werteksy[14] = Werteks(-x0, y0, -z0, -1.0f, 0.0f, 0.0f,0.0f,1.0f, r, g, b);
+//	werteksy[15] = Werteks(-x0, y0, z0, -1.0f, 0.0f, 0.0f,1.0f,1.0f, r, g, b);
 	
+	werteksy[8] = Werteks(x0, -y0, z0,0.0f, 0.0f, r, g, b);
+	werteksy[9] = Werteks(x0, -y0, -z0,1.0f, 0.0f, r, g, b);
+	werteksy[10] = Werteks(x0, y0, z0,0.0f, 1.0f, r, g, b);
+	werteksy[11] = Werteks(x0, y0, -z0, 1.0f, 1.0f, r, g, b);
+	//lewa
+	werteksy[12] = Werteks(-x0, -y0, -z0, 0.0f, 0.0f, r, g, b);
+	werteksy[13] = Werteks(-x0, -y0, z0,  1.0f, 0.0f, r, g, b);
+	werteksy[14] = Werteks(-x0, y0, -z0, 0.0f, 1.0f, r, g, b);
+	werteksy[15] = Werteks(-x0, y0, z0, 1.0f, 1.0f, r, g, b);
+
 	if (koloruj) {
 
 		r = 0.0f;
@@ -150,16 +178,27 @@ unsigned int Prostopadloscian::TworzTabliceWerteksow(Werteks*& werteksy) {
 		b = 1.0f;
 	}
 
-	werteksy[16] = Werteks(-x0, y0, z0, 0.0f, 1.0f, 0.0f,0.0f,0.0f, r, g, b);
-	werteksy[17] = Werteks(x0, y0, z0, 0.0f, 1.0f, 0.0f, 1.0f,0.0f,r, g, b);
-	werteksy[18] = Werteks(-x0, y0, -z0, 0.0f, 1.0f, 0.0f,0.0f,1.0f, r, g, b);
-	werteksy[19] = Werteks(x0, y0, -z0, 0.0f, 1.0f, 0.0f,1.0f,1.0f, r, g, b);
+//	werteksy[16] = Werteks(-x0, y0, z0, 0.0f, 1.0f, 0.0f,0.0f,0.0f, r, g, b);
+//	werteksy[17] = Werteks(x0, y0, z0, 0.0f, 1.0f, 0.0f, 1.0f,0.0f,r, g, b);
+//	werteksy[18] = Werteks(-x0, y0, -z0, 0.0f, 1.0f, 0.0f,0.0f,1.0f, r, g, b);
+//	werteksy[19] = Werteks(x0, y0, -z0, 0.0f, 1.0f, 0.0f,1.0f,1.0f, r, g, b);
 	//dolna
 
-	werteksy[20] = Werteks(-x0, -y0, -z0, 0.0f, -1.0f, 0.0f,0.0f,0.0f, r, g, b);
-	werteksy[21] = Werteks(x0, -y0, -z0, 0.0f, -1.0f, 0.0f,1.0f,0.0f, r, g, b);
-	werteksy[22] = Werteks(-x0, -y0, z0, 0.0f, -1.0f, 0.0f,0.0f,1.0f, r, g, b);//tutaj s,t chyba powinny byc 0.0f,1.0f
-	werteksy[23] = Werteks(x0, -y0, z0, 0.0f, -1.0f, 0.0f,1.0f,1.0f, r, g, b);//tutaj s,t chyba powinny byc 1.0f,1.0f
+//	werteksy[20] = Werteks(-x0, -y0, -z0, 0.0f, -1.0f, 0.0f,0.0f,0.0f, r, g, b);
+//	werteksy[21] = Werteks(x0, -y0, -z0, 0.0f, -1.0f, 0.0f,1.0f,0.0f, r, g, b);
+//	werteksy[22] = Werteks(-x0, -y0, z0, 0.0f, -1.0f, 0.0f,0.0f,1.0f, r, g, b);//tutaj s,t chyba powinny byc 0.0f,1.0f
+//	werteksy[23] = Werteks(x0, -y0, z0, 0.0f, -1.0f, 0.0f,1.0f,1.0f, r, g, b);//tutaj s,t chyba powinny byc 1.0f,1.0f
+
+	werteksy[16] = Werteks(-x0, y0, z0,  0.0f, 0.0f, r, g, b);
+	werteksy[17] = Werteks(x0, y0, z0, 1.0f, 0.0f, r, g, b);
+	werteksy[18] = Werteks(-x0, y0, -z0, 0.0f, 1.0f, r, g, b);
+	werteksy[19] = Werteks(x0, y0, -z0, 1.0f, 1.0f, r, g, b);
+	//dolna
+
+	werteksy[20] = Werteks(-x0, -y0, -z0, 0.0f, 0.0f, r, g, b);
+	werteksy[21] = Werteks(x0, -y0, -z0, 1.0f, 0.0f, r, g, b);
+	werteksy[22] = Werteks(-x0, -y0, z0, 0.0f, 1.0f, r, g, b);
+	werteksy[23] = Werteks(x0, -y0, z0, 1.0f, 1.0f, r, g, b);
 
 	return 24;
 }
@@ -233,11 +272,17 @@ unsigned int KwadratZBuforemIndeksow::TworzTabliceWerteksow(Werteks*& werteksy) 
 	const float y0 = dlugoscKrawedzi / 2.0f;
 
 	werteksy = new Werteks[5];
-	werteksy[0] = Werteks(-x0, -y0, 0.0f,0,0,1, 1, 0, 0, 1);
-	werteksy[1] = Werteks(x0, -y0, 0.0f,0,0,1, 0, 1, 0, 1);
-	werteksy[2] = Werteks(0, y0, 0.0f,0,0,1, 0, 0, 1, 1);
-	werteksy[3] = Werteks(-x0, y0, 0.0f,0,0,1, 0, 0, 1, 1);
-	werteksy[4] = Werteks(x0, y0, 0.0f,0,0,1, 0, 0, 1, 1);
+//	werteksy[0] = Werteks(-x0, -y0, 0.0f,0,0,1, 1, 0, 0, 1);
+//	werteksy[1] = Werteks(x0, -y0, 0.0f,0,0,1, 0, 1, 0, 1);
+//	werteksy[2] = Werteks(0, y0, 0.0f,0,0,1, 0, 0, 1, 1);
+//	werteksy[3] = Werteks(-x0, y0, 0.0f,0,0,1, 0, 0, 1, 1);
+//	werteksy[4] = Werteks(x0, y0, 0.0f,0,0,1, 0, 0, 1, 1);
+
+	werteksy[0] = Werteks(-x0, -y0, 0.0f,0, 0, 1, 1,1,1);
+	werteksy[1] = Werteks(x0, -y0, 0.0f, 0, 1, 1, 1, 1, 1);
+	werteksy[2] = Werteks(0, y0, 0.0f, 0, 1, 1, 1, 1, 1);
+	werteksy[3] = Werteks(-x0, y0, 0.0f, 1, 0, 1, 1, 1, 1);
+	werteksy[4] = Werteks(x0, y0, 0.0f, 1, 1, 1, 1, 1, 1);
 
 	return 5;
 }
@@ -266,10 +311,16 @@ unsigned int Prostokat::TworzTabliceWerteksow(Werteks*& werteksy) {
 	const float y0 = dlugoscKrawedziY / 2.0f;
 
 	werteksy = new Werteks[4];
-	werteksy[0] = Werteks(-x0, -y0, 0.0f, 0, 0,0, 0.0f, 0.0f);
-	werteksy[1] = Werteks(x0, -y0, 0.0f, 0, 0,0, 1.0f, 0.0f);
-	werteksy[2] = Werteks(-x0, y0, 0.0f, 0, 0,0, 0.0f, 1.0f);
-	werteksy[3] = Werteks(x0, y0, 0.0f, 0, 0,0, 1.0f, 1.0f);
+//	werteksy[0] = Werteks(-x0, -y0, 0.0f, 0, 0,0, 0.0f, 0.0f);
+//	werteksy[1] = Werteks(x0, -y0, 0.0f, 0, 0,0, 1.0f, 0.0f);
+//	werteksy[2] = Werteks(-x0, y0, 0.0f, 0, 0,0, 0.0f, 1.0f);
+//	werteksy[3] = Werteks(x0, y0, 0.0f, 0, 0,0, 1.0f, 1.0f);
+
+	werteksy[0] = Werteks(-x0, -y0, 0.0f, 0.0f, 0.0f);
+	werteksy[1] = Werteks(x0, -y0, 0.0f, 1.0f, 0.0f);
+	werteksy[2] = Werteks(-x0, y0, 0.0f, 0.0f, 1.0f);
+	werteksy[3] = Werteks(x0, y0, 0.0f, 1.0f, 1.0f);
+
 
 	return 4;
 }

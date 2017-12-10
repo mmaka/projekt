@@ -60,6 +60,15 @@
     <ClInclude Include="wglext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Cross-Section.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tomogram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cuda_opengl_interop.cuh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -80,11 +89,11 @@
     <ClCompile Include="Pliki.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CrossSection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="cuda_kernel.cuh">
-      <Filter>Header Files</Filter>
-    </None>
     <None Include="..\dll_user\Basic.frag">
       <Filter>Shadery</Filter>
     </None>
@@ -93,7 +102,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <CudaCompile Include="kernel.cu">
+    <CudaCompile Include="cuda_opengl_interop.cu">
       <Filter>Source Files</Filter>
     </CudaCompile>
   </ItemGroup>
