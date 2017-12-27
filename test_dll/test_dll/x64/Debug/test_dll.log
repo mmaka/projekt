@@ -1,8 +1,9 @@
-﻿  Okno.cpp
-c:\users\maka\documents\visual studio 2015\projects\test_dll\test_dll\test_dll\okno.cpp(195): warning C4244: 'initializing': conversion from 'LRESULT' to 'long', possible loss of data
-c:\users\maka\documents\visual studio 2015\projects\test_dll\test_dll\test_dll\okno.cpp(801): warning C4305: 'initializing': truncation from 'double' to 'float'
-c:\users\maka\documents\visual studio 2015\projects\test_dll\test_dll\test_dll\okno.cpp(802): warning C4305: 'initializing': truncation from 'double' to 'float'
-c:\users\maka\documents\visual studio 2015\projects\test_dll\test_dll\test_dll\okno.cpp(803): warning C4305: 'initializing': truncation from 'double' to 'float'
-     Creating library C:\Users\maka\Documents\Visual Studio 2015\Projects\TEST_DLL\test_dll\x64\Debug\test_dll.lib and object C:\Users\maka\Documents\Visual Studio 2015\Projects\TEST_DLL\test_dll\x64\Debug\test_dll.exp
-  test_dll.vcxproj -> C:\Users\maka\Documents\Visual Studio 2015\Projects\TEST_DLL\test_dll\x64\Debug\test_dll.dll
-  test_dll.vcxproj -> C:\Users\maka\Documents\Visual Studio 2015\Projects\TEST_DLL\test_dll\x64\Debug\test_dll.pdb (Full PDB)
+﻿  Pliki.cpp
+  Okno.cpp
+c:\users\maka\documents\visual studio 2015\projects\test_dll\test_dll\test_dll\cuda_opengl_interop.cuh(2): fatal error C1083: Cannot open include file: 'cuda_runtime.h': No such file or directory
+  MacierzOpenGL.cpp
+  CrossSection.cpp
+c:\users\maka\documents\visual studio 2015\projects\test_dll\test_dll\test_dll\crosssection.cpp(40): warning C4312: 'type cast': conversion from 'const int' to 'const GLvoid *' of greater size
+  Aktor.cpp
+c:\users\maka\documents\visual studio 2015\projects\test_dll\test_dll\test_dll\aktor.cpp(29): warning C4312: 'type cast': conversion from 'const int' to 'const GLvoid *' of greater size
+  Generating Code...
